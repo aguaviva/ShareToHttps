@@ -113,14 +113,12 @@ public class UploaderService extends Service {
             public void run() {
                 long startTime = System.currentTimeMillis();
                 try {
-
-
                     for (UriEntry imageUri : uriEntryList) {
 
                         try {
                             log("uploading: " + imageUri.fileName + "\n");
-                            String res = HttpsTransfer.Send(target, username, password, imageUri.fileName, imageUri.is, imageUri.lastModified, progress_listener);
-                            log("res: " + res + "\n");
+                            HttpsTransfer.Result res = HttpsTransfer.Send(target, username, password, imageUri.fileName, imageUri.is, imageUri.lastModified, progress_listener);
+                            log("res: " + res.success + " " + res.message + "\n");
                         } catch (ProtocolException e) {
                             log(e.getClass().getName() + "\n" + e.getMessage()+"\n");
                             e.printStackTrace();
@@ -128,7 +126,7 @@ public class UploaderService extends Service {
                             log(e.getClass().getName() + "\n" + e.getMessage()+"\n");
                             e.printStackTrace();
                         } catch (IOException e) {
-                            log(e.getClass().getName() + "\n" + e.getMessage()+"\n");
+                            log(e.getClass().getName() + " Internet Down?" + "\n");
                             e.printStackTrace();
                         }
 

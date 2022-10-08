@@ -36,7 +36,7 @@ public class HttpsTransfer {
         }
     }
 
-    static public String Send(Uri target, String username, String password, String fileName, InputStream is, Date lastModified, ProgressListener progressListener) throws ProtocolException, MalformedURLException, IOException
+    static public Result Send(Uri target, String username, String password, String fileName, InputStream is, Date lastModified, ProgressListener progressListener) throws ProtocolException, MalformedURLException, IOException
     {
         String lineEnd = "\r\n";
         String twoHyphens = "--";
@@ -132,7 +132,7 @@ public class HttpsTransfer {
 
         conn.disconnect();
 
-        return response_str;
+        return new Result(response, response_str);
     }
 
     public interface ProgressListener {
